@@ -1,0 +1,32 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  data:
+    redis:
+      host: localhost
+      port: 6379
+    mongodb:
+      uri: mongodb:/root:root@localhost:27017/user_db?authSource=admin
+      auto-index-creation: true
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${app.keycloak.url}/realms/${app.keycloak.realm}/protocol/openid-connect/certs
+          issuer-uri: ${app.keycloak.url}/realms/${app.keycloak.realm}
+
+  app:
+    keycloak:
+      url: http://localhost:9080
+      token-url: ${app.keycloak.url}/realms/${app.keycloak.realm}/protocol/openid-connect/token
+      realm: task-tracker
+      client:
+        id:
+        secret:
+    jwt:
+      secret: secretKey
+      refreshTokenExpire: 15m
+      tokenExpire: 5m
+
+
